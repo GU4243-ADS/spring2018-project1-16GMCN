@@ -6,7 +6,7 @@ output:
   html_document:
     df_print: paged
 ---
-#Introduction 
+# Introduction 
 "As I scurried across the candlelit chamber, manuscripts in hand, I thought I'd made it. Nothing would be able to hurt me anymore. Little did I know there was one last fright lurking around the corner."
 This is a part of a horror story which terrifies and excites us. In the passage, we are going to analyze the data composed of horror stories written by Edgar Allan Poe, Mary Shelley, and HP Lovecraft. The data was prepared by chunking larger texts into sentences using CoreNLP's MaxEnt sentence tokenizer. Specifically we would like to consider the similarities and the differences between the texts attributed to each author and study patterns that could be used to characterize the writing styles of the three authors.
 
