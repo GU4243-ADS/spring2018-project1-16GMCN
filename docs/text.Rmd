@@ -1,0 +1,83 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+
+```{r}
+titles <- c("Twenty Thousand Leagues under the Sea", "The War of the Worlds",
+            "Pride and Prejudice", "Great Expectations")
+
+library(gutenbergr)
+
+books <- gutenberg_works(title %in% titles) %>%
+  gutenberg_download(meta_fields = "title")
+```
+
+
+
+
+
+
+
+```{r}
+library(stringr)
+
+# divide into documents, each representing one chapter
+by_chapter <- books %>%
+  group_by(title) %>%
+  mutate(chapter = cumsum(str_detect(text, regex("^chapter ", ignore_case = TRUE)))) %>%
+  ungroup() %>%
+  filter(chapter > 0) %>%
+  unite(document, title, chapter)
+
+# split into words
+by_chapter_word <- by_chapter %>%
+  unnest_tokens(word, text)
+
+# find document-word counts
+word_counts <- by_chapter_word %>%
+  anti_join(stop_words) %>%
+  count(document, word, sort = TRUE) %>%
+  ungroup()
+
+word_counts
+```
+```{r}
+chapters_dtm <- word_counts %>%
+  cast_dtm(document, word, n)
+
+chapters_dtm
+```
+```{r}
+chapters_lda <- LDA(chapters_dtm, k = 4, methods = "Gibbs",control = list(seed = 1234))
+chapters_lda
+```
+```{r}
+chapters_lda.topics <- as.matrix(topics(chapters_lda))
+```
+```{r}
+chapters_lda.terms <- as.matrix(terms(chapters_lda,20))
+topicProbabilities <- as.data.frame(chapters_lda@gamma)
+```
+
+
+
+
+
+
+
+```{r}
+chapter_topics <- tidy(chapters_lda, matrix = "beta")
+chapter_topics
+```
+
+
+
+
+
+
+
+
