@@ -77,15 +77,15 @@ p <- spookydata %>%
   scale_x_log10() +
   theme(legend.position = "right") +
   labs(x = "Sentence length")
-jpeg(file="../figs/sentence.jpeg")
+#jpeg(file="../figs/sentence.jpeg")
 
-plot(p)
-dev.off()
+#plot(p)
+#dev.off()
 
 plot(p)
 
 ```
-Looks like the three authors' sentence length distribution varies. HP Lovecraft prefers long sentence and is more focused on using sentences with length around 200.
+<br>Looks like the three authors' sentence length distribution varies. HP Lovecraft prefers long sentence and is more focused on using sentences with length around 200.
 
 
 Second, let's do some simple treatment to our data: remove the invalid information incluing tokens. Also, we could do the lemmatization to the words.
@@ -107,18 +107,18 @@ spooky_wrd_all <- spooky_wrd %>%
   group_by(word) %>%
   summarise(n = sum(n)) %>%
   ungroup()
-jpeg(file="../figs/wordcloud_1.jpeg")
+#jpeg(file="../figs/wordcloud_1.jpeg")
 
-wordcloud(spooky_wrd_all$word, spooky_wrd_all$n,
-          max.words = 200, scale = c(2.0,0.5),
-          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
-dev.off()
+#wordcloud(spooky_wrd_all$word, spooky_wrd_all$n,
+#          max.words = 200, scale = c(2.0,0.5),
+#          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
+#dev.off()
 wordcloud(spooky_wrd_all$word, spooky_wrd_all$n,
           max.words = 200, scale = c(2.0,0.5),
           colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
 
 ```
-Those words are the  most common words in the datasets, we have seen that the authors would like to use the word like "life","death","door" and "light". It seems that the horror fictions would like to decorate the normal life with life and death.
+<br>Those words are the  most common words in the datasets, we have seen that the authors would like to use the word like "life","death","door" and "light". It seems that the horror fictions would like to decorate the normal life with life and death.
 Naturally, we would assume some diffrence between different authors. Now, let's see if there is any difference between them.
 ```{r, message = F, warning = F}
 
@@ -127,16 +127,16 @@ spooky_wrd_MWS <- spooky_wrd %>%
   group_by(word) %>%
   summarise(n = sum(n)) %>%
   ungroup()
-jpeg(file="../figs/wordcloud_MWS.jpeg")
-wordcloud(spooky_wrd_MWS$word, spooky_wrd_MWS$n,
-          max.words = 200, scale = c(2.0,0.5),
-          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
-dev.off()
+#jpeg(file="../figs/wordcloud_MWS.jpeg")
+#wordcloud(spooky_wrd_MWS$word, spooky_wrd_MWS$n,
+#          max.words = 200, scale = c(2.0,0.5),
+#          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
+#dev.off()
 wordcloud(spooky_wrd_MWS$word, spooky_wrd_MWS$n,
           max.words = 200, scale = c(2.0,0.5),
           colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
 ```
-It seems that Mary Shelley is more focused on the human body and relationships.
+<br>It seems that Mary Shelley is more focused on the human body and relationships.
 
 ```{r message = F, warning = F}
 spooky_wrd_EAP <- spooky_wrd %>%
@@ -144,12 +144,12 @@ spooky_wrd_EAP <- spooky_wrd %>%
   group_by(word) %>%
   summarise(n = sum(n)) %>%
   ungroup()
-jpeg(file="../figs/wordcloud_EAP.jpeg")
+#jpeg(file="../figs/wordcloud_EAP.jpeg")
 
-wordcloud(spooky_wrd_EAP$word, spooky_wrd_EAP$n,
-          max.words = 200, scale = c(2.0,0.5),
-          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
-dev.off()
+#wordcloud(spooky_wrd_EAP$word, spooky_wrd_EAP$n,
+#          max.words = 200, scale = c(2.0,0.5),
+#          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
+#dev.off()
 wordcloud(spooky_wrd_EAP$word, spooky_wrd_EAP$n,
           max.words = 200, scale = c(2.0,0.5),
           colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
@@ -163,17 +163,17 @@ spooky_wrd_HPL <- spooky_wrd %>%
   group_by(word) %>%
   summarise(n = sum(n)) %>%
   ungroup()
-jpeg(file="../figs/wordcloud_HPL.jpeg")
+#jpeg(file="../figs/wordcloud_HPL.jpeg")
 
-wordcloud(spooky_wrd_HPL$word, spooky_wrd_HPL$n,
-          max.words = 200, scale = c(2.0,0.5),
-          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
-dev.off()
+#wordcloud(spooky_wrd_HPL$word, spooky_wrd_HPL$n,
+#          max.words = 200, scale = c(2.0,0.5),
+#          colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
+#dev.off()
 wordcloud(spooky_wrd_HPL$word, spooky_wrd_HPL$n,
           max.words = 200, scale = c(2.0,0.5),
           colors = RColorBrewer::brewer.pal(9, "YlOrRd")[4:10])
 ```
-Well, HP Lovecraft is different from the other two that 
+<br>Well, HP Lovecraft is different from the other two that 
 he prefers the night. Perhaps, his story happens mostly at night.
 
 
@@ -187,10 +187,10 @@ simi_author <- spooky_wrd %>%
 simi_word <- spooky_wrd %>%
    spread(word, n, fill = 2) %>%
    na.omit()
-jpeg(file="../figs/corrgram_simi.jpeg")
+#jpeg(file="../figs/corrgram_simi.jpeg")
 
-corrgram(simi_author, lower.panel = panel.shade, upper.panel = panel.cor)
-dev.off()
+#corrgram(simi_author, lower.panel = panel.shade, upper.panel = panel.cor)
+#dev.off()
 corrgram(simi_author, lower.panel = panel.shade, upper.panel = panel.cor)
 
 ```
@@ -217,14 +217,14 @@ p  <- spookydata %>%
   labs(x = "Gender Difference") +
   geom_bar(position = "dodge")
 
-jpeg(file="../figs/compare_fema.jpeg")
+#jpeg(file="../figs/compare_fema.jpeg")
 
-plot(p)
-dev.off()
+#plot(p)
+#dev.off()
 plot(p)
 
 ```
-Apparently, male characters are the leading gender in the horror fictions. Separately, HP Lovecraft is much more focused on the male characters than the other authors. Mary, as a female author, pays more attention to the female characters than the two other male authors. Then, what exactly words did they use as gender indications. Let's find it out.
+<br>Apparently, male characters are the leading gender in the horror fictions. Separately, HP Lovecraft is much more focused on the male characters than the other authors. Mary, as a female author, pays more attention to the female characters than the two other male authors. Then, what exactly words did they use as gender indications. Let's find it out.
 ```{r}
 p1 <- spookydata %>%
   unnest_tokens(word, text) %>%
@@ -242,9 +242,9 @@ p2 <- spookydata %>%
 
 layout <- matrix(c(1,2),2,1,byrow=TRUE)
 
-jpeg(file="../figs/compare_fema_1.jpeg")
-multiplot(p1, p2, layout=layout)
-dev.off()
+#jpeg(file="../figs/compare_fema_1.jpeg")
+#multiplot(p1, p2, layout=layout)
+#dev.off()
 multiplot(p1, p2, layout=layout)
 
 
@@ -270,11 +270,11 @@ p_heshe<-t_heshe %>%
   scale_y_log10() +
   coord_flip() +
   facet_grid(word1 ~ author)
-jpeg(file="../figs/compare_fema_2.jpeg")
+#jpeg(file="../figs/compare_fema_2.jpeg")
 
-plot(p_heshe)
+#plot(p_heshe)
 
-dev.off()
+#dev.off()
 plot(p_heshe)
 
 t_himh <- spookydata %>%
@@ -294,15 +294,15 @@ p_himh<-t_himh %>%
   scale_y_log10() +
   coord_flip() +
   facet_grid(word1 ~ author)
-jpeg(file="../figs/compare_fema_3.jpeg")
+#jpeg(file="../figs/compare_fema_3.jpeg")
 
-plot(p_himh)
-dev.off()
+#plot(p_himh)
+#dev.off()
 plot(p_himh)
 
 
 ```
-It is easy to see that Lovecraft is apparently less interested in using "she" and "her" than the other authors. And EAP and MWS are quite alike in using words associated with "she","he","her"and "him". We may infer that Lovecraft' writing styles in characters are different from the other two while the other two are quite alike.
+<br>It is easy to see that Lovecraft is apparently less interested in using "she" and "her" than the other authors. And EAP and MWS are quite alike in using words associated with "she","he","her"and "him". We may infer that Lovecraft' writing styles in characters are different from the other two while the other two are quite alike.
 
 
 
@@ -343,14 +343,14 @@ p_tf_idf<-tf_idf %>%
   facet_wrap(~author, scales = "free") +
   ylab("tf-idf") +
   coord_flip()
-jpeg(file="../figs/compare_tf_idf.jpeg")
+#jpeg(file="../figs/compare_tf_idf.jpeg")
 
-plot(p_tf_idf)
-dev.off()
+#plot(p_tf_idf)
+#dev.off()
 plot(p_tf_idf)
 
 ```
-It is clearly seen that the authors have different emphasis on different words. Then, what is the similarities among them? We could discover that by finding the pairwise correlation of word frequencies within each author.
+<br>It is clearly seen that the authors have different emphasis on different words. Then, what is the similarities among them? We could discover that by finding the pairwise correlation of word frequencies within each author.
 
 ```{r}
 
@@ -370,14 +370,14 @@ p_author<-author_cors %>%
   geom_node_point(size =10, color = "lightblue") +
   geom_node_text(aes(label = name),color='red' ,repel = TRUE) +
   theme_void()
-jpeg(file="../figs/simi_author_idf.jpeg")
+#jpeg(file="../figs/simi_author_idf.jpeg")
 
-plot(p_author)
-dev.off()
+#plot(p_author)
+#dev.off()
 plot(p_author)
 
 ```
-It is clear that the tf-idf analysis coincides with the previous number counts methods in comparing the writing styles.Edgar is likely both the other writers, while the other two is less likely. 
+<br>It is clear that the tf-idf analysis coincides with the previous number counts methods in comparing the writing styles.Edgar is likely both the other writers, while the other two is less likely. 
 
 
 
@@ -408,14 +408,14 @@ pic_wrd_mws <-spooky_wrd %>%
   coord_flip()+
   labs( x = NULL,y = "Sentiment Analysis") +
   ggtitle("Mary Shelley: Negative  Positive Words")
-jpeg(file="../figs/senti_MWS.jpeg")
+#jpeg(file="../figs/senti_MWS.jpeg")
 
-plot(pic_wrd_mws)
-dev.off()
+#plot(pic_wrd_mws)
+#dev.off()
 plot(pic_wrd_mws)
 
 ```
-As for Mary, she is mostly focused on the negative, positive, uncertainty words. And specifically, as for the negative words, she likes "fear", "lost" and "poor".Her top 3 positive words are "happiness","happy","pleasure". Her top 3 positive words are "appeared","suddenly","unknown".
+<br>As for Mary, she is mostly focused on the negative, positive, uncertainty words. And specifically, as for the negative words, she likes "fear", "lost" and "poor".Her top 3 positive words are "happiness","happy","pleasure". Her top 3 positive words are "appeared","suddenly","unknown".
 
 ```{r,message = F, warning = F}
 
@@ -434,10 +434,10 @@ pic_wrd_hpl<-spooky_wrd %>%
   coord_flip()+
   labs( x = NULL,y = "Sentiment Analysis") +
   ggtitle("H P Lovecraft: Negative  Positive Words")
-jpeg(file="../figs/senti_HPL.jpeg")
+#jpeg(file="../figs/senti_HPL.jpeg")
 
-plot(pic_wrd_hpl)
-dev.off()
+#plot(pic_wrd_hpl)
+#dev.off()
 plot(pic_wrd_hpl)
 
 ```
@@ -464,10 +464,10 @@ pic_wrd_eap<-spooky_wrd %>%
   coord_flip()+
   labs( x = NULL,y = "Sentiment Analysis") +
   ggtitle("E A Poe: Negative  Positive Words")
-jpeg(file="../figs/senti_EAP.jpeg")
+#jpeg(file="../figs/senti_EAP.jpeg")
 
-plot(pic_wrd_eap)
-dev.off()
+#plot(pic_wrd_eap)
+#dev.off()
 plot(pic_wrd_eap)
 ```
 
@@ -478,26 +478,21 @@ In all, as for the sentiment words, all the authors focuses on the words "positi
 Then, we may visualize the sentiment clustering word cloud as below.
 
 ```{r,message = F, warning = F}
-jpeg(file="../figs/sent_wordcloud.jpeg")
+#jpeg(file="../figs/sent_wordcloud.jpeg")
 
 spooky_wrd %>%
   inner_join(get_sentiments("loughran"), by = "word") %>%
   count(word, sentiment, sort = TRUE) %>%
   acast(word ~ sentiment, value.var = "n", fill = 0) %>%
   comparison.cloud(colors = c("#F8766D", "#00BFC4"), max.words = 500)
-dev.off()
+#dev.off()
 
-spooky_wrd %>%
-  inner_join(get_sentiments("loughran"), by = "word") %>%
-  count(word, sentiment, sort = TRUE) %>%
-  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
-  comparison.cloud(colors = c("#F8766D", "#00BFC4"), max.words = 500)
 ```
 # The super negative Index
 To further anlayze the sentiment among the fictions, we could do some numerical analysis.
 Define the super negative Index = (#uncertainty+#Negative + #constraining)/(#Postive + #Negative + #constraining + #uncertainty)
 
-```{r,message = F, warning = False}
+```{r,message = F, warning = F}
 pic1 <- spooky_wrd %>%
   inner_join(get_sentiments("loughran"), by = "word") %>%
   ggplot(aes(author, fill = sentiment)) +
@@ -522,13 +517,13 @@ pic2 <- spooky_wrd %>%
 
 layout <- matrix(c(1,2),1,2,byrow=TRUE)
 
-jpeg(file="../figs/super_negative_index.jpeg")
-multiplot(pic1, pic2, layout=layout)
-dev.off()
+#jpeg(file="../figs/super_negative_index.jpeg")
+#multiplot(pic1, pic2, layout=layout)
+#dev.off()
 multiplot(pic1, pic2, layout=layout)
 
 ```
-This picture directly reveals the sentiment distribution among the authors. All of the authors focuse most on negative, then positive and uncertainty. While the two male authors' focus on uncertainty words are more than the female author: Mary.
+<br>This picture directly reveals the sentiment distribution among the authors. All of the authors focuse most on negative, then positive and uncertainty. While the two male authors' focus on uncertainty words are more than the female author: Mary.
 
 
 # N-gram Analysis
@@ -559,7 +554,7 @@ bigram_tf_idf <- usenet_bigrams %>%
 ```
 
 ```{r}
-jpeg(file="../figs/tf_idf_authors.jpeg")
+#jpeg(file="../figs/tf_idf_authors.jpeg")
 
 bigram_tf_idf %>%
   group_by(bigram_tf_idf$author)%>%
@@ -571,18 +566,7 @@ bigram_tf_idf %>%
   facet_wrap(~author, scales = "free") +
   ylab("tf-idf") +
   coord_flip()
-dev.off()
-
-bigram_tf_idf %>%
-  group_by(bigram_tf_idf$author)%>%
-    top_n(10, tf_idf) %>%
-  ungroup() %>%
-  mutate(bigram = reorder(bigram, tf_idf)) %>%
-  ggplot(aes(bigram, tf_idf, fill = author)) +
-  geom_col(show.legend = FALSE) +
-  facet_wrap(~author, scales = "free") +
-  ylab("tf-idf") +
-  coord_flip()
+#dev.off()
 
 ```
 As we can see, Lovecraft and EAP used the words like "ha ha" and "heh heh" most, while Mary pays little attention to them. It may be a major different between the male authors and female authors of horror fictions.
@@ -654,14 +638,14 @@ pic_topic<-top_terms %>%
   geom_col(show.legend = FALSE) +
   facet_wrap(~ topic, scales = "free") +
   coord_flip()
-jpeg(file="../figs/topics.jpeg")
-plot(pic_topic)
-dev.off()
+#jpeg(file="../figs/topics.jpeg")
+#plot(pic_topic)
+#dev.off()
 plot(pic_topic)
 
 
 ```
-We can now see the ten topics, and the 5 most frequent words in each topic.
+<br>We can now see the ten topics, and the 5 most frequent words in each topic.
 
 
 ```{r}
@@ -680,13 +664,13 @@ topic_a<-chapters_gamma %>%
   ggplot(aes(factor(topic), gamma)) +
   geom_boxplot() +
   facet_wrap(~ author)
-jpeg(file="../figs/topics_author.jpeg")
-plot(topic_a)
-dev.off()
+#jpeg(file="../figs/topics_author.jpeg")
+#plot(topic_a)
+#dev.off()
 plot(topic_a)
 
 ```
-Clearly, in the topic 1 which describes the atmosphere and envronment, Lovecraft is more focused on it than the other two authors.While Edgar focuses on topic 2 and Mary focuses on topic 9. The major differences revealed in this plot best illustrates the difference among the authors.
+<br>Clearly, in the topic 1 which describes the atmosphere and envronment, Lovecraft is more focused on it than the other two authors.While Edgar focuses on topic 2 and Mary focuses on topic 9. The major differences revealed in this plot best illustrates the difference among the authors.
 
 
 ```{r}
@@ -729,12 +713,13 @@ heat_map<-assignments %>%
   labs(x = "Topics assigned to",
        y = "Topics came from",
        fill = "% of topics")
-jpeg(file="../figs/topics_heatmap.jpeg")
-plot(heat_map)
-dev.off()
+#jpeg(file="../figs/topics_heatmap.jpeg")
+#plot(heat_map)
+#dev.off()
 plot(heat_map)
 
 ```
+<br>
 It is not hard  to see, by the measurement of topics, these authors basically don't have much in common. So it would be wise to classify the fictions according to the topics.
 
 In all, the three authors vary in the wrting styles in many aspects including the gender, the sentence length, the focused topic and the words focus. However, the three authors are much alike each other in the distribution of emotions of the words. This may be viewed as a pattern for horror fictions.
