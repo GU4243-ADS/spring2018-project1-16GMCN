@@ -1,7 +1,7 @@
 ---
-title: "SPOOKY Data Analysis"
+title: "Horror Fictions Authors: What is the difference?"
 author: "Mao Guan"
-date: "January 30, 2018"
+date: "Feb 2, 2018"
 output:
   html_document:
     df_print: paged
@@ -579,6 +579,38 @@ chapter_classifications <- chapters_gamma %>%
 chapter_classifications
 
 ```
+
+```{r}
+book_topics <- chapter_classifications %>%
+  count(author, topic) %>%
+  group_by(author) %>%
+  top_n(1, n) %>%
+  ungroup() %>%
+  transmute(consensus = author, topic)
+
+assignments <- augment(chapters_lda, data = chapters_dtm)
+assignments <- assignments %>%
+  separate(document, c("author"), sep = "_", convert = TRUE) %>%
+  inner_join(book_topics, by = c(".topic" = "topic"))
+
+```
+
+```{r}
+assignments %>%
+  count(author, consensus, wt = count) %>%
+  group_by(author) %>%
+  mutate(percent = n / sum(n)) %>%
+  ggplot(aes(consensus, author, fill = percent)) +
+  geom_tile() +
+  scale_fill_gradient2(high = "red", label = percent_format()) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        panel.grid = element_blank()) +
+  labs(x = "Topics assigned to",
+       y = "Topics came from",
+       fill = "% of topics")
+```
+It is not hard  to see, by the measurement of topics, these authors basically don't have much in common. So it would be wise to classify the fictions according to the topics.
 
 In all, the three authors vary in the wrting styles in many aspects including the gender, the sentence length, the focused topic and the words focus. However, the three authors are much alike each other in the distribution of emotions of the words. This may be viewed as a pattern for horror fictions.
 
